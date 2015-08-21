@@ -14,6 +14,7 @@ import java.util.List;
  */
 public abstract class ArrayListAdapter<T> extends BaseAdapter {
 
+    private OnItemChildClickListener listener;
     private LayoutInflater inflater;
     private Context context;
     private int layoutResId;
@@ -79,5 +80,19 @@ public abstract class ArrayListAdapter<T> extends BaseAdapter {
 
     protected Context getContext() {
         return context;
+    }
+
+    public void setOnItemChildClickListener(OnItemChildClickListener listener) {
+        this.listener = listener;
+    }
+
+    protected void triggerChildClick(int position,View v) {
+        if (listener!=null) {
+            listener.onChildClick(position,v);
+        }
+    }
+
+    public interface OnItemChildClickListener {
+        void onChildClick(int position,View v);
     }
 }
